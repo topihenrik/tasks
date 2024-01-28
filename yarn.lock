@@ -7438,7 +7438,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0, clsx@npm:^2.1.0":
+"clsx@npm:^2.0.0":
   version: 2.1.0
   resolution: "clsx@npm:2.1.0"
   checksum: c09c00ad14f638366ca814097e6cab533dfa1972a358da5b557be487168acbb25b4c1395e89ffa842a8a61ba87a462d2b4885bc9d4f8410b598f3cb339599cdb
@@ -14671,6 +14671,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwind-merge@npm:^1.14.0":
+  version: 1.14.0
+  resolution: "tailwind-merge@npm:1.14.0"
+  checksum: a66f5ab1a2bb2b0f5a40a031867a6bc900de98eb3339b2a51759351221527a3d600eecb6cb5a038830aa89548eba72bb63aa3856cb9f31c9a3918b42eb3df350
+  languageName: node
+  linkType: hard
+
+"tailwind-variants@npm:^0.1.20":
+  version: 0.1.20
+  resolution: "tailwind-variants@npm:0.1.20"
+  dependencies:
+    tailwind-merge: "npm:^1.14.0"
+  peerDependencies:
+    tailwindcss: "*"
+  checksum: 70fedecb635c5aa8109acb9e4d5608d37d5df82d9c9c091f6b9b2d3b7ddf5f6ca1902e3443b30a367352795d49aa5da73f47e49cc0f3c69108425df8fd95039c
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:^3.3.0":
   version: 3.4.1
   resolution: "tailwindcss@npm:3.4.1"
@@ -14789,7 +14807,6 @@ __metadata:
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
     autoprefixer: "npm:^10.0.1"
-    clsx: "npm:^2.1.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
     eslint-plugin-storybook: "npm:^0.6.15"
@@ -14801,6 +14818,7 @@ __metadata:
     react-aria-components: "npm:^1.0.1"
     react-dom: "npm:^18"
     storybook: "npm:^7.6.10"
+    tailwind-variants: "npm:^0.1.20"
     tailwindcss: "npm:^3.3.0"
     typescript: "npm:^5"
     webpack: "npm:^5.90.0"
