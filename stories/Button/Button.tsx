@@ -1,6 +1,10 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {Button as ReactAriaButton} from "react-aria-components";
 import { tv } from 'tailwind-variants';
+
+// TODO: investigate outline-none further
+// TODO: investigate .visible:focus:not(:focus-visible)
+
 
 const button = tv({
   base: "font-bold capitalize py-2 px-4 rounded hover:shadow-md active:opacity-90",
@@ -18,11 +22,16 @@ const button = tv({
   }
 })
 
-export default function Button({children, color, isDisabled, props}) {
+interface ButtonProps {
+  children: ReactNode;
+  color: "primary" | "secondary" | "success" | "warning" | "error";
+  isDisabled?: boolean;
+}
+
+export default function Button({children, color, isDisabled}: ButtonProps) {
   return (
     <ReactAriaButton
       className={button({ color, disabled: isDisabled })}
-      {...props}
     >
       {children}
     </ReactAriaButton>
