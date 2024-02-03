@@ -20,7 +20,7 @@ interface HeadingProps {
   level: number;
 }
 
-export default function Heading({children, className, level}: HeadingProps) {
+export default function Heading({children, className, level = 1}: HeadingProps) {
   let HeadingElement = `h${level}` as ElementType;
   return (
     <HeadingElement className={heading({level: level, class: className})}>

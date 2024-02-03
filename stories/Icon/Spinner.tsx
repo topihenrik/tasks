@@ -1,4 +1,5 @@
 import {tv} from 'tailwind-variants';
+import SpinnerIcon from "../../public/icons/spinner.svg";
 
 const icon = tv({
   slots: {
@@ -8,29 +9,29 @@ const icon = tv({
   variants: {
     color: {
       primary: {
-        svg: "fill-white"
+        svg: "stroke-white"
       },
       secondary: {
-        svg: "fill-blue-800"
+        svg: "stroke-blue-800"
       },
       success: {
-        svg: "fill-white"
+        svg: "stroke-white"
       },
       warning: {
-        svg: "fill-white"
+        svg: "stroke-white"
       },
       error: {
-        svg: "fill-white"
+        svg: "stroke-white"
       },
     },
   }
 })
 
-export default function Icon({className, color, src: SvgIcon}) {
+export default function Spinner({className, color}) {
   const {wrapper, svg} = icon({color});
   return (
     <div className={wrapper({class: className})}>
-      <SvgIcon class={svg()} width="100%" height="100%" viewBox="0 0 512 512"/>
+      <SpinnerIcon class={svg()} width="100%" height="100%"/>
     </div>
   )
 }

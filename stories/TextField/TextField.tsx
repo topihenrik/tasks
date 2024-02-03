@@ -13,7 +13,7 @@ const textField = tv({
     field: "flex flex-col relative gap-1",
     input: [
       "min-w-36 flex grow border-2 border-gray-500 rounded-md p-2 text-black",
-      "focus:outline-blue-600 hover:border-gray-800",
+      "focus:outline-blue-600 hover:border-gray-950",
       "data-[has-start-icon=true]:pl-10 data-[has-end-icon=true]:pr-10"
     ]
   },

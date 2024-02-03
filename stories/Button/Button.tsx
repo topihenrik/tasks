@@ -1,10 +1,12 @@
 import React, {ReactNode} from "react";
 import {Button as ReactAriaButton} from "react-aria-components";
 import { tv } from 'tailwind-variants';
+import Icon from "../Icon/Icon";
+import Spinner from "../Icon/Spinner.tsx";
 
 const button = tv({
   base: [
-    "font-bold capitalize py-2 px-4 rounded subpixel-antialiased",
+    "flex justify-center gap-3 items-center font-bold capitalize py-2 px-4 rounded subpixel-antialiased select-none",
     "hover:shadow-md active:opacity-90 pressed:scale-[1.01] transition-transform"
   ],
   variants: {
@@ -32,8 +34,13 @@ const button = tv({
     },
     disabled: {
       true: [
-        "bg-gray-100 text-gray-500 opacity-50 border-solid border-2 border-gray-400 cursor-not-allowed",
+        "bg-gray-100 text-gray-500 opacity-50 border-solid border-2 border-gray-400",
         "hover:bg-gray-100 hover:shadow-none focus:outline-0 active:opacity-50"
+      ]
+    },
+    loading: {
+      true: [
+        "opacity-50 hover:bg-current pointer-events-none"
       ]
     }
   }
@@ -43,15 +50,27 @@ interface ButtonProps {
   children: ReactNode;
   color: "primary" | "secondary" | "success" | "warning" | "error";
   isDisabled?: boolean;
+  isLoading?: boolean;
+  startIcon?: string;
+  endIcon?: string;
 }
 
-export default function Button({children, color, isDisabled}: ButtonProps) {
+export default function Button({children, color, isDisabled, isLoading, startIcon, endIcon = ""}: ButtonProps) {
   return (
     <ReactAriaButton
       isDisabled={isDisabled}
-      className={button({ color, disabled: isDisabled })}
+      className={button({ color, disabled: isDisabled, loading: isLoading })}
     >
+      {(startIcon && !isLoading) &&
+          <Icon color={color} src={startIcon}/>
+      }
+      {isLoading &&
+          <Spinner color={color}/>
+      }
       {children}
+      {endIcon &&
+          <Icon color={color} src={endIcon}/>
+      }
     </ReactAriaButton>
   )
 }
