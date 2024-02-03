@@ -38,3 +38,17 @@ export const Variants: Story = {
     )
   }
 }
+
+export const Disabled: Story = {
+  render: (args) => {
+    return (
+      <div className="box-content flex flex-col gap-2 w-64">
+        <TextField value="John" type="text" placeholder="First Name" label="First Name" isDisabled={true}/>
+        <TextField value="Doe" type="text" placeholder="Last Name" label="Last Name" isDisabled={true}/>
+        <TextField value="john.doe" type="text" placeholder="Username" label="Username" isDisabled={true} startIcon={PersonIcon} endIcon={CopyIcon}/>
+        <TextField value="john.doe@mail.com" type="email" placeholder="Email" label="Email" isDisabled={true} startIcon={EmailIcon}/>
+        <TextField value="password123" type="password" placeholder="Password" label="Password" isDisabled={true} startIcon={KeyIcon}/>
+      </div>
+    )
+  }
+}
