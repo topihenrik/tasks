@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {
   TextField as ReactAriaTextField,
+  TextFieldProps as ReactAriaTextFieldProps,
   Label as ReactAriaLabel,
   Input as ReactAriaInput, Text, FieldError
 } from "react-aria-components";
@@ -8,7 +9,7 @@ import {tv} from 'tailwind-variants';
 import {useState} from "react";
 import Icon from "../Icon/Icon";
 
-const textField = tv({
+const style = tv({
   slots: {
     field: "flex flex-col relative gap-1",
     input: [
@@ -27,18 +28,33 @@ const textField = tv({
   }
 })
 
-interface TextFieldProps {
-  value: string;
-  placeholder: string;
-  type: string;
+interface TextFieldProps extends ReactAriaTextFieldProps {
+  /**
+   * Label text
+   */
   label: string;
-  isDisabled?: boolean;
+  /**
+   * Error state message
+   */
   errorText?: string;
+  /**
+   * Icon at the start of the button container
+   */
   startIcon?: string;
+  /**
+   * Icon at the end of the button container
+   */
   endIcon?: string;
 }
 
-export default function TextField({value, placeholder, type, label, isDisabled, text, errorText, startIcon, endIcon}: TextFieldProps) {
+export default function TextField({label, errorText, startIcon, endIcon, ...props}: TextFieldProps) {
+  const {
+    value,
+    placeholder,
+    type,
+    isDisabled
+  } = props;
+
   const [innerValue, setInnerValue] = useState('');
 
   useEffect(() => {
@@ -46,7 +62,7 @@ export default function TextField({value, placeholder, type, label, isDisabled, 
   }, [value])
 
   return (
-    <ReactAriaTextField isDisabled={isDisabled} className={textField({disabled: isDisabled}).field} onChange={setInnerValue}>
+    <ReactAriaTextField isDisabled={isDisabled} className={style({disabled: isDisabled}).field} onChange={setInnerValue}>
       <ReactAriaLabel>{label}</ReactAriaLabel>
       <div className="relative flex items-center">
         {startIcon &&
@@ -56,7 +72,7 @@ export default function TextField({value, placeholder, type, label, isDisabled, 
           placeholder={placeholder}
           value={innerValue}
           type={type}
-          className={textField({disabled: isDisabled}).input}
+          className={style({disabled: isDisabled}).input}
           data-has-start-icon={startIcon ? "true" : "false"}
           data-has-end-icon={endIcon ? "true" : "false"}
         />

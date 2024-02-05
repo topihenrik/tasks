@@ -4,12 +4,15 @@ import { tv } from 'tailwind-variants';
 const style = tv({
   slots: {
     wrapper: "flex justify-around flex-1",
-    divider: "border-t border-gray-950 w-1 my-4 w-auto flex-1",
+    divider: "border-t border-gray-950 w-1 my-8 w-auto flex-1",
     content: "flex items-center justify-center px-4"
   }
 })
 
 interface DividerProps {
+  /**
+   * Content inside the divider
+   */
   children?: ReactNode;
 }
 

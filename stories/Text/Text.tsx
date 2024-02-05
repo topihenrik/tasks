@@ -1,13 +1,11 @@
-import {ReactNode} from "react";
+import {JSX} from "react";
 
-interface TextProps {
-  children: ReactNode;
-  className?: string;
-}
+interface TextProps extends JSX.IntrinsicElements.span {}
 
-export default function Text({children, className}: TextProps) {
+export default function Text({...props}: TextProps) {
+  const {children, className} = props;
   return (
-    <span className={className}>
+    <span {...props} className={className}>
       {children}
     </span>
   )

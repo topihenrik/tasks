@@ -1,6 +1,7 @@
+import {JSX} from "react";
 import {tv} from 'tailwind-variants';
 
-const icon = tv({
+const style = tv({
   slots: {
     wrapper: "h-6 w-6",
     svg: "",
@@ -26,11 +27,23 @@ const icon = tv({
   }
 })
 
-export default function Icon({className, color, src: SvgIcon}) {
-  const {wrapper, svg} = icon({color});
+interface IconProps extends JSX.IntrinsicElements.svg {
+  /**
+   * The source location of the SVG file
+   */
+  src: string;
+  /**
+   * Dictates the color scheme of the element
+   */
+  color?: "primary" | "secondary" | "success" | "warning" | "error";
+}
+
+export default function Icon({src: SvgIcon, color, ...props}: IconProps) {
+  const {className} = props;
+  const {wrapper, svg} = style({color});
   return (
     <div className={wrapper({class: className})}>
-      <SvgIcon class={svg()} width="100%" height="100%" viewBox="0 0 512 512"/>
+      <SvgIcon className={svg()} width="100%" height="100%" viewBox="0 0 512 512"/>
     </div>
   )
 }

@@ -1,10 +1,13 @@
-import React, {ReactNode} from "react";
-import {Button as ReactAriaButton} from "react-aria-components";
-import { tv } from 'tailwind-variants';
+import React from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import {tv} from 'tailwind-variants';
 import Icon from "../Icon/Icon";
 import Spinner from "../Icon/Spinner.tsx";
 
-const button = tv({
+const style = tv({
   base: [
     "flex justify-center gap-3 items-center font-bold capitalize py-2 px-4 rounded subpixel-antialiased select-none",
     "hover:shadow-md active:opacity-90 pressed:scale-[1.01] transition-transform"
@@ -46,20 +49,44 @@ const button = tv({
   }
 })
 
-interface ButtonProps {
-  children: ReactNode;
+interface ButtonProps extends ReactAriaButtonProps {
+  /**
+   * Dictates the color scheme of the element
+   */
   color: "primary" | "secondary" | "success" | "warning" | "error";
-  isDisabled?: boolean;
+  /**
+   * Shows whether the element is in loading state
+   */
   isLoading?: boolean;
+  /**
+   * Deprecated prop which is transformed to onPress
+   */
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * Icon at the start of the button container
+   */
   startIcon?: string;
+  /**
+   * Icon at the end of the button container
+   */
   endIcon?: string;
 }
 
-export default function Button({children, color, isDisabled, isLoading, startIcon, endIcon = ""}: ButtonProps) {
+export default function Button({color, isLoading, onClick, startIcon, endIcon, ...props}: ButtonProps) {
+  const {
+    children,
+    className,
+    type,
+    isDisabled
+  } = props;
+
   return (
     <ReactAriaButton
+      {...props}
+      onPress={onClick}
+      type={type}
       isDisabled={isDisabled}
-      className={button({ color, disabled: isDisabled, loading: isLoading })}
+      className={style({color, disabled: isDisabled, loading: isLoading, class: className})}
     >
       {(startIcon && !isLoading) &&
           <Icon color={color} src={startIcon}/>
