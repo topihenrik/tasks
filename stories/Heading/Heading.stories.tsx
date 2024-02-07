@@ -1,4 +1,5 @@
-import Heading from "./Heading.tsx";
+import Heading from "./Heading";
+import {StoryObj, Meta} from "@storybook/react";
 
 const meta: Meta<typeof Heading> = {
   component: Heading,

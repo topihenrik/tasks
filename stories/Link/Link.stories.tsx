@@ -1,6 +1,5 @@
-import {Meta} from "@storybook/blocks";
-import {StoryObj} from "@storybook/react";
-import Link from "./Link.tsx";
+import {StoryObj, Meta} from "@storybook/react";
+import Link from "./Link";
 
 const meta: Meta<typeof Link> = {
   component: Link,

@@ -1,47 +1,64 @@
-import Icon from "../Icon/Icon.tsx";
-import Spinner from "../Icon/Spinner.tsx";
+import Icon from "../Icon/Icon";
+import Spinner from "../Icon/Spinner";
 import {
   Button as ReactAriaButton,
   ButtonProps as ReactAriaButtonProps,
 } from "react-aria-components";
 import {tv} from 'tailwind-variants';
-import {MouseEvent} from "react";
+import {ReactNode} from "react";
 
 const style = tv({
   base: [
     "flex justify-center gap-3 items-center font-bold capitalize py-3 px-4 rounded",
     "bg-white text-black border-solid border-2 border-neutral-600 subpixel-antialiased select-none",
     "hover:shadow-md focus:outline-blue-600 focus:outline-4 active:opacity-90 pressed:scale-[1.01] transition-transform",
-  ]
+  ],
+  variants: {
+    disabled: {
+      true: [
+        "bg-gray-100 text-gray-500 opacity-50 border-solid border-2 border-gray-400",
+        "hover:bg-gray-100 hover:shadow-none focus:outline-0 active:opacity-50"
+      ]
+    },
+    loading: {
+      true: [
+        "opacity-50 hover:bg-current pointer-events-none"
+      ]
+    }
+  }
 })
 
 interface AuthButtonProps extends ReactAriaButtonProps {
   /**
+   * Text children of the component.
+   */
+  children: ReactNode | string;
+  /**
+   * Additional tailwind styles for the element.
+   */
+  className?: string;
+  /**
    * Shows whether the element is in loading state
    */
   isLoading?: boolean;
-  /**
-   * Deprecated prop which is transformed to onPress
-   */
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   /**
    * Icon at the start of the button container
    */
   startIcon?: string;
 }
 
-export default function AuthButton({isLoading, onClick, startIcon, ...props}: AuthButtonProps) {
-  const {
-    children,
-    className,
-    type,
-    isDisabled
-  } = props;
-
+export default function AuthButton({
+   children,
+   className,
+   type,
+   isDisabled,
+   isLoading,
+   startIcon,
+   ...props
+}: AuthButtonProps) {
   return (
     <ReactAriaButton
       {...props}
-      onPress={onClick}
       type={type}
       isDisabled={isDisabled}
       className={style({disabled: isDisabled, loading: isLoading, class: className})}

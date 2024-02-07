@@ -11,8 +11,8 @@ import Icon from "../Icon/Icon";
 
 const style = tv({
   slots: {
-    field: "flex flex-col relative gap-1",
-    input: [
+    textField: "flex flex-col relative gap-1",
+    textInput: [
       "min-w-36 flex grow border-2 border-gray-500 rounded-md p-2 text-black",
       "focus:outline-blue-600 hover:border-gray-950",
       "data-[has-start-icon=true]:pl-10 data-[has-end-icon=true]:pr-10"
@@ -21,8 +21,8 @@ const style = tv({
   variants: {
     disabled: {
       true: {
-        field: "text-gray-500 opacity-50",
-        input: "border-gray-500 text-gray-500 hover:border-gray-500 cursor-not-allowed"
+        textField: "text-gray-500 opacity-50",
+        textInput: "border-gray-500 text-gray-500 hover:border-gray-500 cursor-not-allowed"
       }
     }
   }
@@ -33,6 +33,10 @@ interface TextFieldProps extends ReactAriaTextFieldProps {
    * Label text
    */
   label: string;
+  /**
+   * Placeholder text
+   */
+  placeholder: string;
   /**
    * Error state message
    */
@@ -47,14 +51,18 @@ interface TextFieldProps extends ReactAriaTextFieldProps {
   endIcon?: string;
 }
 
-export default function TextField({label, errorText, startIcon, endIcon, ...props}: TextFieldProps) {
-  const {
-    value,
-    placeholder,
-    type,
-    isDisabled
-  } = props;
-
+export default function TextField({
+  value = "",
+  type,
+  isDisabled = false,
+  label,
+  placeholder,
+  errorText,
+  startIcon,
+  endIcon,
+  ...props
+}: TextFieldProps) {
+  const {textField, textInput} = style();
   const [innerValue, setInnerValue] = useState('');
 
   useEffect(() => {
@@ -62,7 +70,11 @@ export default function TextField({label, errorText, startIcon, endIcon, ...prop
   }, [value])
 
   return (
-    <ReactAriaTextField isDisabled={isDisabled} className={style({disabled: isDisabled}).field} onChange={setInnerValue}>
+    <ReactAriaTextField
+      {...props}
+      className={textField({disabled: isDisabled})}
+      onChange={setInnerValue}
+    >
       <ReactAriaLabel>{label}</ReactAriaLabel>
       <div className="relative flex items-center">
         {startIcon &&
@@ -72,7 +84,7 @@ export default function TextField({label, errorText, startIcon, endIcon, ...prop
           placeholder={placeholder}
           value={innerValue}
           type={type}
-          className={style({disabled: isDisabled}).input}
+          className={textInput({disabled: isDisabled})}
           data-has-start-icon={startIcon ? "true" : "false"}
           data-has-end-icon={endIcon ? "true" : "false"}
         />

@@ -14,15 +14,27 @@ const style = tv({
   }
 })
 
-interface HeadingProps extends JSX.IntrinsicElements.h1 {
+interface HeadingProps {
+  /**
+   * Text children of the component.
+   */
+  children: string;
+  /**
+   * Additional tailwind styles for the element.
+   */
+  className?: string;
   /**
    * Level of the heading
    */
-  level?: number;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export default function Heading({level = 1, ...props}: HeadingProps) {
-  const {children, className} = props;
+export default function Heading({
+  children,
+  className,
+  level = 1,
+  ...props
+}: HeadingProps) {
   let HeadingElement = `h${level}` as ElementType;
   return (
     <HeadingElement

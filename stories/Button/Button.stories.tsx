@@ -1,6 +1,5 @@
-import Button from "./Button.tsx";
-import {Meta} from "@storybook/blocks";
-import {StoryObj} from "@storybook/react";
+import Button from "./Button";
+import {StoryObj, Meta} from "@storybook/react";
 import KeyIcon from '../../public/icons/key.svg';
 import CaretForwardIcon from '../../public/icons/caret-forward.svg';
 import ShieldCheckmarkIcon from "../../public/icons/shield-checkmark.svg";

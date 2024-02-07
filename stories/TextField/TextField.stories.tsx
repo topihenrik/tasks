@@ -1,6 +1,5 @@
-import TextField from "./TextField.tsx";
-import {Meta} from "@storybook/blocks";
-import {StoryObj} from "@storybook/react";
+import TextField from "./TextField";
+import {StoryObj, Meta} from "@storybook/react";
 import EmailIcon from '../../public/icons/mail.svg'
 import CopyIcon from '../../public/icons/copy.svg'
 import PersonIcon from '../../public/icons/person.svg'

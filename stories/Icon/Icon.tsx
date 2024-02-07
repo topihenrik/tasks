@@ -1,4 +1,4 @@
-import {JSX} from "react";
+import {FC, SVGProps} from "react";
 import {tv} from 'tailwind-variants';
 
 const style = tv({
@@ -27,23 +27,30 @@ const style = tv({
   }
 })
 
-interface IconProps extends JSX.IntrinsicElements.svg {
+interface IconProps {
   /**
    * The source location of the SVG file
    */
-  src: string;
+  src: FC<SVGProps<SVGSVGElement>> | string;
   /**
    * Dictates the color scheme of the element
    */
   color?: "primary" | "secondary" | "success" | "warning" | "error";
+  /**
+   * Additional tailwind styles for the element.
+   */
+  className?: string;
 }
 
-export default function Icon({src: SvgIcon, color, ...props}: IconProps) {
-  const {className} = props;
-  const {wrapper, svg} = style({color});
+export default function Icon({
+  className,
+  src: SvgIcon,
+  color,
+}: IconProps) {
+  const {wrapper, svg} = style();
   return (
     <div className={wrapper({class: className})}>
-      <SvgIcon className={svg()} width="100%" height="100%" viewBox="0 0 512 512"/>
+      <SvgIcon className={svg({color})} width="100%" height="100%" viewBox="0 0 512 512"/>
     </div>
   )
 }

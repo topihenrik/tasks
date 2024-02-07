@@ -1,7 +1,6 @@
-import {Meta} from "@storybook/blocks";
-import {StoryObj} from "@storybook/react";
-import Divider from "./Divider.tsx";
-import Text from "../Text/Text.tsx";
+import {StoryObj, Meta} from "@storybook/react";
+import Divider from "./Divider";
+import Text from "../Text/Text";
 import Heading from "../Heading/Heading";
 
 const meta: Meta<typeof Divider> = {

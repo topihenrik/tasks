@@ -1,11 +1,11 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {
   Button as ReactAriaButton,
   ButtonProps as ReactAriaButtonProps,
 } from "react-aria-components";
 import {tv} from 'tailwind-variants';
 import Icon from "../Icon/Icon";
-import Spinner from "../Icon/Spinner.tsx";
+import Spinner from "../Icon/Spinner";
 
 const style = tv({
   base: [
@@ -55,13 +55,17 @@ interface ButtonProps extends ReactAriaButtonProps {
    */
   color: "primary" | "secondary" | "success" | "warning" | "error";
   /**
+   * Text children of the component.
+   */
+  children: ReactNode | string;
+  /**
+   * Additional tailwind styles for the element.
+   */
+  className?: string;
+  /**
    * Shows whether the element is in loading state
    */
   isLoading?: boolean;
-  /**
-   * Deprecated prop which is transformed to onPress
-   */
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   /**
    * Icon at the start of the button container
    */
@@ -72,18 +76,20 @@ interface ButtonProps extends ReactAriaButtonProps {
   endIcon?: string;
 }
 
-export default function Button({color, isLoading, onClick, startIcon, endIcon, ...props}: ButtonProps) {
-  const {
-    children,
-    className,
-    type,
-    isDisabled
-  } = props;
-
+export default function Button({
+   children,
+   className,
+   type,
+   isDisabled,
+   color,
+   isLoading,
+   startIcon,
+   endIcon,
+   ...props
+}: ButtonProps) {
   return (
     <ReactAriaButton
       {...props}
-      onPress={onClick}
       type={type}
       isDisabled={isDisabled}
       className={style({color, disabled: isDisabled, loading: isLoading, class: className})}
