@@ -1,7 +1,7 @@
-import {ElementType, ReactNode} from "react";
+import {ElementType, JSX} from "react";
 import { tv } from 'tailwind-variants';
 
-const heading = tv({
+const style = tv({
   variants: {
     level: {
       1: "text-5xl",
@@ -15,15 +15,32 @@ const heading = tv({
 })
 
 interface HeadingProps {
-  children: ReactNode;
+  /**
+   * Text children of the component.
+   */
+  children: string;
+  /**
+   * Additional tailwind styles for the element.
+   */
   className?: string;
-  level: number;
+  /**
+   * Level of the heading
+   */
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export default function Heading({children, className, level = 1}: HeadingProps) {
+export default function Heading({
+  children,
+  className,
+  level = 1,
+  ...props
+}: HeadingProps) {
   let HeadingElement = `h${level}` as ElementType;
   return (
-    <HeadingElement className={heading({level: level, class: className})}>
+    <HeadingElement
+      {...props}
+      className={style({level: level, class: className})}
+    >
       {children}
     </HeadingElement>
   )

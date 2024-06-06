@@ -1,4 +1,5 @@
-import Text from "./Text.tsx";
+import {StoryObj, Meta} from "@storybook/react";
+import Text from "./Text";
 
 const meta: Meta<typeof Text> = {
   component: Text,

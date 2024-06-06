@@ -1,7 +1,7 @@
 import {tv} from 'tailwind-variants';
 import SpinnerIcon from "../../public/icons/spinner.svg";
 
-const icon = tv({
+const style = tv({
   slots: {
     wrapper: "h-6 w-6",
     svg: "",
@@ -27,11 +27,22 @@ const icon = tv({
   }
 })
 
-export default function Spinner({className, color}) {
-  const {wrapper, svg} = icon({color});
+interface SpinnerProps {
+  /**
+   * Additional tailwind styles for the element.
+   */
+  className?: string;
+  /**
+   * Dictates the color scheme of the element.
+   */
+  color?: "primary" | "secondary" | "success" | "warning" | "error";
+}
+
+export default function Spinner({className, color}: SpinnerProps) {
+  const {wrapper, svg} = style({color});
   return (
     <div className={wrapper({class: className})}>
-      <SpinnerIcon class={svg()} width="100%" height="100%"/>
+      <SpinnerIcon className={svg()} width="100%" height="100%"/>
     </div>
   )
 }

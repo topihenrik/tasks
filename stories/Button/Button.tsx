@@ -1,10 +1,14 @@
 import React, {ReactNode} from "react";
-import {Button as ReactAriaButton} from "react-aria-components";
-import { tv } from 'tailwind-variants';
-import Icon from "../Icon/Icon";
-import Spinner from "../Icon/Spinner.tsx";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import {tv} from 'tailwind-variants';
+import {Icon} from "../Icon/Icon";
+import Spinner from "../Icon/Spinner";
+import {icons} from "lucide-react";
 
-const button = tv({
+const style = tv({
   base: [
     "flex justify-center gap-3 items-center font-bold capitalize py-2 px-4 rounded subpixel-antialiased select-none",
     "hover:shadow-md active:opacity-90 pressed:scale-[1.01] transition-transform"
@@ -24,7 +28,7 @@ const button = tv({
         "hover:bg-green-800 focus:outline-green-900"
       ],
       warning: [
-        "bg-yellow-500 text-white",
+        "bg-yellow-600 text-white",
         "hover:bg-yellow-700 focus:outline-yellow-800"
       ],
       error: [
@@ -46,30 +50,60 @@ const button = tv({
   }
 })
 
-interface ButtonProps {
-  children: ReactNode;
+interface ButtonProps extends ReactAriaButtonProps {
+  /**
+   * Dictates the color scheme of the element
+   */
   color: "primary" | "secondary" | "success" | "warning" | "error";
-  isDisabled?: boolean;
+  /**
+   * Text children of the component.
+   */
+  children: ReactNode | string;
+  /**
+   * Additional tailwind styles for the element.
+   */
+  className?: string;
+  /**
+   * Shows whether the element is in loading state
+   */
   isLoading?: boolean;
-  startIcon?: string;
-  endIcon?: string;
+  /**
+   * Icon at the start of the button container
+   */
+  startIcon?: keyof typeof icons;
+  /**
+   * Icon at the end of the button container
+   */
+  endIcon?: keyof typeof icons;
 }
 
-export default function Button({children, color, isDisabled, isLoading, startIcon, endIcon = ""}: ButtonProps) {
+export default function Button({
+   children,
+   className,
+   type,
+   isDisabled,
+   color,
+   isLoading,
+   startIcon,
+   endIcon,
+   ...props
+}: ButtonProps) {
   return (
     <ReactAriaButton
+      {...props}
+      type={type}
       isDisabled={isDisabled}
-      className={button({ color, disabled: isDisabled, loading: isLoading })}
+      className={style({color, disabled: isDisabled, loading: isLoading, class: className})}
     >
       {(startIcon && !isLoading) &&
-          <Icon color={color} src={startIcon}/>
+          <Icon name={startIcon}/>
       }
       {isLoading &&
           <Spinner color={color}/>
       }
       {children}
       {endIcon &&
-          <Icon color={color} src={endIcon}/>
+          <Icon name={endIcon}/>
       }
     </ReactAriaButton>
   )

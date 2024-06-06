@@ -1,17 +1,19 @@
 import React, {useEffect} from "react";
 import {
   TextField as ReactAriaTextField,
+  TextFieldProps as ReactAriaTextFieldProps,
   Label as ReactAriaLabel,
   Input as ReactAriaInput, Text, FieldError
 } from "react-aria-components";
 import {tv} from 'tailwind-variants';
 import {useState} from "react";
-import Icon from "../Icon/Icon";
+import {Icon} from "../Icon/Icon";
+import {icons} from "lucide-react";
 
-const textField = tv({
+const style = tv({
   slots: {
-    field: "flex flex-col relative gap-1",
-    input: [
+    textField: "flex flex-col relative gap-1",
+    textInput: [
       "min-w-36 flex grow border-2 border-gray-500 rounded-md p-2 text-black",
       "focus:outline-blue-600 hover:border-gray-950",
       "data-[has-start-icon=true]:pl-10 data-[has-end-icon=true]:pr-10"
@@ -20,25 +22,49 @@ const textField = tv({
   variants: {
     disabled: {
       true: {
-        field: "text-gray-500 opacity-50",
-        input: "border-gray-500 text-gray-500 hover:border-gray-500 cursor-not-allowed"
+        textField: "text-gray-500 opacity-50",
+        textInput: "border-gray-500 text-gray-500 hover:border-gray-500 cursor-not-allowed"
       }
     }
   }
 })
 
-interface TextFieldProps {
-  value: string;
-  placeholder: string;
-  type: string;
+interface TextFieldProps extends ReactAriaTextFieldProps {
+  /**
+   * Label text
+   */
   label: string;
-  isDisabled?: boolean;
+  /**
+   * Placeholder text
+   */
+  placeholder: string;
+  /**
+   * Error state message
+   */
   errorText?: string;
-  startIcon?: string;
-  endIcon?: string;
+  /**
+   * Icon at the start of the button container
+   */
+  startIcon?: keyof typeof icons;
+  /**
+   * Icon at the end of the button container
+   */
+  endIcon?: keyof typeof icons;
 }
 
-export default function TextField({value, placeholder, type, label, isDisabled, text, errorText, startIcon, endIcon}: TextFieldProps) {
+export default function TextField({
+  value = "",
+  type,
+  name,
+  isDisabled = false,
+  label,
+  placeholder,
+  errorText,
+  startIcon,
+  endIcon,
+  ...props
+}: TextFieldProps) {
+  const {textField, textInput} = style();
   const [innerValue, setInnerValue] = useState('');
 
   useEffect(() => {
@@ -46,22 +72,27 @@ export default function TextField({value, placeholder, type, label, isDisabled, 
   }, [value])
 
   return (
-    <ReactAriaTextField isDisabled={isDisabled} className={textField({disabled: isDisabled}).field} onChange={setInnerValue}>
+    <ReactAriaTextField
+      {...props}
+      className={textField({disabled: isDisabled})}
+      onChange={setInnerValue}
+    >
       <ReactAriaLabel>{label}</ReactAriaLabel>
       <div className="relative flex items-center">
         {startIcon &&
-            <Icon className="absolute left-2" src={startIcon}/>
+            <Icon className="absolute left-2" name={startIcon} color="black"/>
         }
         <ReactAriaInput
           placeholder={placeholder}
           value={innerValue}
+          name={name}
           type={type}
-          className={textField({disabled: isDisabled}).input}
+          className={textInput({disabled: isDisabled})}
           data-has-start-icon={startIcon ? "true" : "false"}
           data-has-end-icon={endIcon ? "true" : "false"}
         />
         {endIcon &&
-            <Icon className="absolute right-2" src={endIcon}/>
+            <Icon className="absolute right-2" name={endIcon} color="black"/>
         }
       </div>
       <Text slot="errorMessage"/>
