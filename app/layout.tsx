@@ -13,9 +13,9 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   return (
     <html lang="en">
       <body className={inter.className}>
-      <main className="flex flex-col justify-center items-center h-screen">
-        {children}
-      </main>
+        <main className="flex flex-col justify-center items-center h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );

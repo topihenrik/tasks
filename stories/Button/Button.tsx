@@ -4,8 +4,9 @@ import {
   ButtonProps as ReactAriaButtonProps,
 } from "react-aria-components";
 import {tv} from 'tailwind-variants';
-import Icon from "../Icon/Icon";
+import {Icon} from "../Icon/Icon";
 import Spinner from "../Icon/Spinner";
+import {icons} from "lucide-react";
 
 const style = tv({
   base: [
@@ -27,7 +28,7 @@ const style = tv({
         "hover:bg-green-800 focus:outline-green-900"
       ],
       warning: [
-        "bg-yellow-500 text-white",
+        "bg-yellow-600 text-white",
         "hover:bg-yellow-700 focus:outline-yellow-800"
       ],
       error: [
@@ -69,11 +70,11 @@ interface ButtonProps extends ReactAriaButtonProps {
   /**
    * Icon at the start of the button container
    */
-  startIcon?: string;
+  startIcon?: keyof typeof icons;
   /**
    * Icon at the end of the button container
    */
-  endIcon?: string;
+  endIcon?: keyof typeof icons;
 }
 
 export default function Button({
@@ -95,14 +96,14 @@ export default function Button({
       className={style({color, disabled: isDisabled, loading: isLoading, class: className})}
     >
       {(startIcon && !isLoading) &&
-          <Icon color={color} src={startIcon}/>
+          <Icon name={startIcon}/>
       }
       {isLoading &&
           <Spinner color={color}/>
       }
       {children}
       {endIcon &&
-          <Icon color={color} src={endIcon}/>
+          <Icon name={endIcon}/>
       }
     </ReactAriaButton>
   )

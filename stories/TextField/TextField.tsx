@@ -7,7 +7,8 @@ import {
 } from "react-aria-components";
 import {tv} from 'tailwind-variants';
 import {useState} from "react";
-import Icon from "../Icon/Icon";
+import {Icon} from "../Icon/Icon";
+import {icons} from "lucide-react";
 
 const style = tv({
   slots: {
@@ -44,16 +45,17 @@ interface TextFieldProps extends ReactAriaTextFieldProps {
   /**
    * Icon at the start of the button container
    */
-  startIcon?: string;
+  startIcon?: keyof typeof icons;
   /**
    * Icon at the end of the button container
    */
-  endIcon?: string;
+  endIcon?: keyof typeof icons;
 }
 
 export default function TextField({
   value = "",
   type,
+  name,
   isDisabled = false,
   label,
   placeholder,
@@ -78,18 +80,19 @@ export default function TextField({
       <ReactAriaLabel>{label}</ReactAriaLabel>
       <div className="relative flex items-center">
         {startIcon &&
-            <Icon className="absolute left-2" src={startIcon}/>
+            <Icon className="absolute left-2" name={startIcon} color="black"/>
         }
         <ReactAriaInput
           placeholder={placeholder}
           value={innerValue}
+          name={name}
           type={type}
           className={textInput({disabled: isDisabled})}
           data-has-start-icon={startIcon ? "true" : "false"}
           data-has-end-icon={endIcon ? "true" : "false"}
         />
         {endIcon &&
-            <Icon className="absolute right-2" src={endIcon}/>
+            <Icon className="absolute right-2" name={endIcon} color="black"/>
         }
       </div>
       <Text slot="errorMessage"/>

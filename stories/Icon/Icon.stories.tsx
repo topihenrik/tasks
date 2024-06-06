@@ -1,6 +1,5 @@
-import Icon from "./Icon";
+import {Icon} from "./Icon";
 import {StoryObj, Meta} from "@storybook/react";
-import EmailFilled from '../../public/icons/mail.svg'
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
@@ -16,6 +15,6 @@ type Story = StoryObj<typeof Icon>;
 
 export const Default: Story = {
   args: {
-    src: EmailFilled
+    name: "Mail"
   }
 }

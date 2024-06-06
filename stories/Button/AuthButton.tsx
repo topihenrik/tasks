@@ -1,4 +1,3 @@
-import Icon from "../Icon/Icon";
 import Spinner from "../Icon/Spinner";
 import {
   Button as ReactAriaButton,
@@ -6,6 +5,8 @@ import {
 } from "react-aria-components";
 import {tv} from 'tailwind-variants';
 import {ReactNode} from "react";
+import GitHubLogo from "../../public/icons/logo-github.svg";
+import GoogleLogo from "../../public/icons/logo-google.svg";
 
 const style = tv({
   base: [
@@ -44,7 +45,18 @@ interface AuthButtonProps extends ReactAriaButtonProps {
   /**
    * Icon at the start of the button container
    */
-  startIcon?: string;
+  startIcon?: "GitHub" | "Google";
+}
+
+function getAuthIcon(name: "GitHub" | "Google") {
+  switch (name) {
+    case "GitHub":
+      return <GitHubLogo width="24px" height="24px" viewBox="0 0 512 512"/>
+    case "Google":
+      return <GoogleLogo width="24px" height="24px" viewBox="0 0 512 512"/>;
+    default:
+      return null;
+  }
 }
 
 export default function AuthButton({
@@ -64,7 +76,7 @@ export default function AuthButton({
       className={style({disabled: isDisabled, loading: isLoading, class: className})}
     >
       {(startIcon && !isLoading) &&
-          <Icon src={startIcon}/>
+          getAuthIcon(startIcon)
       }
       {isLoading &&
           <Spinner/>
