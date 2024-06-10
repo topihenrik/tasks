@@ -20,7 +20,7 @@ const style = tv({
         "hover:bg-blue-800 focus:outline-blue-900"
       ],
       secondary: [
-        "bg-white text-blue-800 border-solid border-2 border-blue-800",
+        "bg-white text-blue-800 border-solid border-2 border-blue-800 py-1.5",
         "hover:bg-gray-50 focus:outline-blue-900 active:bg-blue-50"
       ],
       success: [

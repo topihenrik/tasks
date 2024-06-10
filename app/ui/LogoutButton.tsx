@@ -2,7 +2,7 @@
 import Button from "@/stories/Button/Button";
 import {logout} from "@/app/lib/actions";
 
-export default function Logout() {
+export default function LogoutButton() {
   return (
     <form action={logout}>
       <Button

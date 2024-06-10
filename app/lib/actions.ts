@@ -72,6 +72,6 @@ export async function credentialLogin(prevState: State | undefined, formData: Fo
 }
 
 export async function logout() {
-  await signOut();
+  await signOut({redirectTo: '/login'});
 }
 
